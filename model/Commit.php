@@ -38,7 +38,7 @@ class Commit {
 		if(isset($this->info->sha)) {
 			return $this->info->sha;
 		} else {
-			return '';
+			return null;
 		}
 	}
 	
