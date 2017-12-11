@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html>
 <body>
-<?php
-foreach($commits as $commit) {
-?>
 	<div>
 		<div>
 <?php
@@ -26,11 +23,24 @@ foreach($commits as $commit) {
 			<div><?= $commit->getDate() ?></div>
 		</div>
 		<div>
-			<a href="commit.php?sha=<?= $commit->getSha() ?>"><div><?= $commit->getCommitMessage() ?></div></a>
-		</div><br><br>
-	</div>
+			<div><?= $commit->getCommitMessage() ?></div>
+		</div>
+		<div>
+			<div><?= $commit->getAdditions() ?> additions</div>
+			<div><?= $commit->getDeletions() ?> deletions</div>
+		</div>
+		<div>
+			<div><?= $commit->getFilesNumber() ?> changed files:</div>
+			<ul>
 <?php
-}
+	foreach($commit->getFiles() as $file) {
 ?>
+				<li><?= $file ?></li>
+<?php
+	}
+?>
+			</ul>
+		</div>
+	</div>
 </body>
 </html>

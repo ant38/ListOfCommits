@@ -1,6 +1,6 @@
 <?php
 
-require_once 'Commit.php';
+require_once 'model/Commit.php';
 
 class Curl {
 	private $url = 'https://api.github.com/repos/torvalds/linux/commits';
@@ -12,12 +12,16 @@ class Curl {
 		//set params
 		curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($this->curl, CURLOPT_SSL_VERIFYPEER, false);
-		curl_setopt($this->curl, CURLOPT_URL, $this->url);
+		$this->setUrl($this->url);
 		curl_setopt($this->curl, CURLOPT_USERAGENT, 'request');
 	}
 	
 	private function request() {
 		return curl_exec($this->curl);
+	}
+	
+	private function setUrl($url) {
+		curl_setopt($this->curl, CURLOPT_URL, $url);
 	}
 	
 	public function getCommits() {
@@ -28,6 +32,13 @@ class Curl {
 			$commits[] = new Commit($l);
 		}
 		return $commits;
+	}
+	
+	public function getCommit($sha) {
+		$this->setUrl("https://api.github.com/repos/torvalds/linux/commits/$sha");
+		$json = $this->request();
+		$obj = json_decode($json);
+		return new Commit($obj);
 	}
 }
 
