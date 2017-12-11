@@ -6,7 +6,15 @@
 <body>
 	<div class="container">
 		<br>
-		<a href="." class="btn btn-default">Home</a>
+		<header>
+			<a href=".?repo=<?= $repo ?>" class="btn btn-default">Home</a>
+			<br>
+			<br>
+			<form class="form-inline" action="." method="get">
+				<input class="form-control" type="text" name="repo" placeholder="repository" value="<?= $repo ?>">
+				<button class="btn btn-default" type="submit">Submit</button>
+			</form>
+		</header>
 <?php
 foreach($commits as $commit) {
 ?>
@@ -35,7 +43,7 @@ foreach($commits as $commit) {
 				</div>
 			</div>
 			<div class="col-xs-9">
-				<a href="commit.php?sha=<?= $commit->getSha() ?>"><div><?= $commit->getCommitMessage() ?></div></a>
+				<a href="commit.php?sha=<?= $commit->getSha() ?>&repo=<?= $repo ?>"><div><?= $commit->getCommitMessage() ?></div></a>
 			</div>
 		</div>
 <?php

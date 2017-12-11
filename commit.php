@@ -6,12 +6,20 @@ if(!isset($_GET['sha'])) {
 	die('error: missing parameter');
 }
 
-$curl = new Curl();
+$curl = null;
+if(isset($_GET['repo'])) {
+	$curl = new Curl($_GET['repo']);
+} else {
+	$curl = new Curl();
+}
+
 $commit = $curl->getCommit($_GET['sha']);
 
 if(is_null($commit->getSha())) {
-	die('error: incorrect parameter');
+	die('error: incorrect parameters');
 }
+
+$repo = $curl->getRepo();
 
 include 'view/commit.php';
 

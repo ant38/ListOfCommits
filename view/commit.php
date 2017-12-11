@@ -6,7 +6,7 @@
 <body>
 	<div class="container">
 		<br>
-		<a href="." class="btn btn-default">Home</a>
+		<a href=".?repo=<?= $repo ?>" class="btn btn-default">Home</a>
 		<hr>
 		<div class="row">
 			<div class="col-xs-3">
