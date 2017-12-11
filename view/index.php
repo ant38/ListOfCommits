@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
 <body>
+	<div class="container">
+		<br>
+		<a href="." class="btn btn-default">Home</a>
 <?php
 foreach($commits as $commit) {
 ?>
-	<div>
-		<div>
+		<hr>
+		<div class="row">
+			<div class="col-xs-3">
+				<div>
 <?php
 	$committer = $commit->getCommitter();
 	if(!is_null($committer)) {
@@ -13,24 +21,27 @@ foreach($commits as $commit) {
 		$avatar = $committer->getAvatar();
 		if(!is_null($url) && !is_null($avatar)) {
 ?>
-			<a href="<?= $url ?>"><img width="50px" src="<?= $avatar ?>"></a>
+					<a href="<?= $url ?>"><img width="50px" src="<?= $avatar ?>"></a>
 <?php
 		}
 ?>
-			<span><?= $committer->getLogin() ?></span>
+					<span><?= $committer->getLogin() ?></span>
 <?php
 	}
 ?>
+				</div>
+				<div>
+					<div><?= $commit->getDate() ?></div>
+				</div>
+			</div>
+			<div class="col-xs-9">
+				<a href="commit.php?sha=<?= $commit->getSha() ?>"><div><?= $commit->getCommitMessage() ?></div></a>
+			</div>
 		</div>
-		<div>
-			<div><?= $commit->getDate() ?></div>
-		</div>
-		<div>
-			<a href="commit.php?sha=<?= $commit->getSha() ?>"><div><?= $commit->getCommitMessage() ?></div></a>
-		</div><br><br>
-	</div>
 <?php
 }
 ?>
+		<hr>
+	</div>
 </body>
 </html>
